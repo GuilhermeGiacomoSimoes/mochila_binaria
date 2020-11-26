@@ -103,14 +103,14 @@ int main() {
 	int pesos    [ numero_itens ]; 
 
 	for ( int index = 0; index < numero_itens; index ++) {
-		std::cout << "Informar o valor do " << index + 1 << "º item: ";
+		std::cout << "Informar o valor do " << index + 1 << "* item: ";
 		std::cin  >> valores[index];
 		if (std::cin.fail()) {
 			std::cout << "Favor informar um numero valido" << std::endl;;	
 			return 1;
 		}
 
-		std::cout << "Informar o peso do " << index + 1 << "º item: ";
+		std::cout << "Informar o peso do " << index + 1 << "* item: ";
 		std::cin  >> pesos[index];	
 		if (std::cin.fail()) {
 			std::cout << "Favor informar um numero valido" << std::endl;;	
