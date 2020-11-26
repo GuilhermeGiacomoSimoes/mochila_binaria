@@ -2,15 +2,15 @@
 #include<vector>
 
 std::vector<std::vector<int>> zerar_colunas_e_linhas ( std::vector<std::vector<int>> tabela, int capacidade_mochila, int numero_itens ) {
-	for (int item = 0; item < capacidade_mochila; item++) {
+	for (int item = 0; item <= numero_itens; item++) {
 		
-		std::vector<int> itens;
+		std::vector<int> capacidades;
 
-		for (int capacidade = 0; capacidade < numero_itens; capacidade++) {
-			itens.push_back(0);		 
+		for (int capacidade = 0; capacidade < capacidade_mochila; capacidade++) {
+			capacidades.push_back(0);		 
 		}
 
-		tabela.push_back( itens );	
+		tabela.push_back( capacidades );	
 	}	
 
 	
@@ -26,16 +26,16 @@ int resolver_mochila_binaria( int capacidade_mochila, int pesos[], int valores[]
 		for (int capacidade = 1; capacidade <= capacidade_mochila; capacidade++) {
 			if (pesos[itens - 1] <= capacidade) {
 
-				if (valores[itens - 1] + tabela[itens - 1][ capacidade - pesos[ itens - 1 ]] > tabela[itens - 1][capacidade]) {
-					tabela[itens][capacidade] = valores[itens - 1] + tabela[itens - 1][ capacidade - pesos[ itens - 1 ]];	
+				if ((valores[itens - 1] + tabela[itens - 1][capacidade - pesos[itens - 1]]) > tabela[itens - 1][capacidade]) {
+					tabela[itens][capacidade] = valores[itens - 1] + tabela[itens - 1][capacidade - pesos[itens - 1]];	
 				}
 				else {
 					tabela[itens][capacidade] = tabela[itens - 1][capacidade];
 				}
 			}	
 			else {
-					tabela[itens][capacidade] = tabela[itens - 1][capacidade];
-				}
+				tabela[itens][capacidade] = tabela[itens - 1][capacidade];
+			}
 		}
 	}
 
@@ -43,10 +43,10 @@ int resolver_mochila_binaria( int capacidade_mochila, int pesos[], int valores[]
 }
 
 int main() {
-	int capacidade_mochila = 20;
-	int numero_itens = 5;
-	int valores[]	= {3, 5, 8, 4, 10};
-	int pesos[] = {2, 4, 5, 3, 9};
+	int capacidade_mochila 	= 20;
+	int numero_itens 		= 5;
+	int valores[]			= {3, 5, 8, 4, 10};
+	int pesos[] 			= {2, 4, 5, 3, 9};
 
 	int max_valor = resolver_mochila_binaria( capacidade_mochila, pesos, valores, numero_itens );
 
