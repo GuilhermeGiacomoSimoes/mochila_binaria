@@ -6,7 +6,7 @@
 #include<vector>
 #include <assert.h>
 
-std::vector<std::vector<int>> zerar_colunas_e_linhas ( std::vector<std::vector<int>> tabela, int capacidade_mochila, int numero_itens ) {
+std::vector< std::vector<int> > zerar_colunas_e_linhas ( std::vector< std::vector<int> > tabela, int capacidade_mochila, int numero_itens ) {
 	for (int item = 0; item <= numero_itens; item++) {
 		
 		std::vector<int> capacidades;
@@ -23,7 +23,7 @@ std::vector<std::vector<int>> zerar_colunas_e_linhas ( std::vector<std::vector<i
 
 int resolver_mochila_binaria( int capacidade_mochila, int pesos[], int valores[], int numero_itens ){
 
-	std::vector<std::vector<int>> tabela;  
+	std::vector< std::vector<int> > tabela;  
 	tabela = zerar_colunas_e_linhas( tabela, capacidade_mochila, numero_itens );
 
 	for (int itens = 1; itens <= numero_itens; itens++) {
