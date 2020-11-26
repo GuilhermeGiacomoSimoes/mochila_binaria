@@ -1,3 +1,7 @@
+#ifdef defined(__WIN32) || defined(WIN32)
+	#define OS_Windows
+#endif
+
 #include<iostream>
 #include<vector>
 #include <assert.h>
@@ -45,15 +49,27 @@ int resolver_mochila_binaria( int capacidade_mochila, int pesos[], int valores[]
 }
 
 
+void imprimir_resposta(int solucao) {
+
+	#ifdef OS_Windows
+		system("cls");
+	#else
+		system("clear");
+	#endif
+
+	std::cout << "Solucao otima: " << solucao << std::endl;	
+}
+
+
 bool teste() {
-	int capacidade_mochila 	= 20;
-	int numero_itens 		= 5;
-	int valores[]			= {3, 5, 8, 4, 10};
-	int pesos[] 			= {2, 4, 5, 3, 9};
+	int capacidade_mochila 	= 7;              
+	int numero_itens 		= 4;              
+	int valores[]			= {10, 7, 25, 24};
+	int pesos[] 			= {2, 1, 6, 5};   
 
 	int max_valor = resolver_mochila_binaria( capacidade_mochila, pesos, valores, numero_itens );
 
-	if ( max_valor != 36) {
+	if ( max_valor == 34) {
 		return true;
 	}
 	else {
@@ -61,17 +77,49 @@ bool teste() {
 	}
 }
 
+
 int main() {
 	
 	assert( teste() );
 
+	int capacidade_mochila;
+	int numero_itens;
+	
+	std::cout << "capacidade da mochila: ";
+	std::cin  >> capacidade_mochila;	
+	if (std::cin.fail()) {
+		std::cout << "Favor informar um numero valido" << std::endl;;	
+		return 1;
+	}
 
-	int capacidade_mochila 	= 7;
-	int numero_itens 		= 4;
-	int valores[]			= {10, 7, 25, 24};
-	int pesos[] 			= {2, 1, 6, 5};
+	std::cout << "numero de itens: ";
+	std::cin  >> numero_itens;
+	if (std::cin.fail()) {
+		std::cout << "Favor informar um numero valido" << std::endl;;	
+		return 1;
+	}
+	
+	int valores  [ numero_itens ];
+	int pesos    [ numero_itens ]; 
 
-	int max_valor = resolver_mochila_binaria( capacidade_mochila, pesos, valores, numero_itens );
+	for ( int index = 0; index < numero_itens; index ++) {
+		std::cout << "Informar o valor do " << index + 1 << "º item: ";
+		std::cin  >> valores[index];
+		if (std::cin.fail()) {
+			std::cout << "Favor informar um numero valido" << std::endl;;	
+			return 1;
+		}
 
-	std::cout << "SOLUÇÃO: " << max_valor << std::endl;
+		std::cout << "Informar o peso do " << index + 1 << "º item: ";
+		std::cin  >> pesos[index];	
+		if (std::cin.fail()) {
+			std::cout << "Favor informar um numero valido" << std::endl;;	
+			return 1;
+		}
+
+		
+	}
+
+	int solucao = resolver_mochila_binaria( capacidade_mochila, pesos, valores, numero_itens );
+	imprimir_resposta(solucao);
 }
