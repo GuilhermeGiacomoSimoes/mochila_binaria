@@ -1,28 +1,33 @@
 #include<iostream>
+#include<vector>
 
-int[][] zerar_primeiras_colunas_e_linhas ( int m[][], int w, int n) {
-	for (int linha = 0; linha < w; linha ++) {
-		m[linha][0] = 0;
+std::vector<std::vector<int>> zerar_colunas_e_linhas ( std::vector<std::vector<int>> tabela, int capacidade_mochila, int numero_itens ) {
+	for (int item = 0; item < capacidade_mochila; item++) {
+		
+		std::vector<int> itens;
+
+		for (int capacidade = 0; capacidade < numero_itens; capacidade++) {
+			itens.push_back(0);		 
+		}
+
+		tabela.push_back( itens );	
 	}	
 
-	for (int coluna = 0; coluna < w; coluna ++) {
-		m[0][coluna] = 0;
-	}
-
-	return m;
+	
+	return tabela;
 }
 
 int resolver_mochila_binaria( int capacidade_mochila, int pesos[], int valores[], int numero_itens ){
-	int tabela[numero_itens + 1][capacidade_mochila + 1];
 
-	tabela = zerar_primeiras_colunas_e_linhas();
+	std::vector<std::vector<int>> tabela;  
+	tabela = zerar_colunas_e_linhas( tabela, capacidade_mochila, numero_itens );
 
 	for (int itens = 1; itens <= numero_itens; itens++) {
 		for (int capacidade = 1; capacidade <= capacidade_mochila; capacidade++) {
 			if (pesos[itens - 1] <= capacidade) {
 
-				if (valores[i - 1] + tabela[i - 1][ capacidade - pesos[ itens - 1 ]] > tabela[itens - 1][capacidade]) {
-					tabela[itens][capacidade] = valores[i - 1] + tabela[i - 1][ capacidade - pesos[ itens - 1 ]]	
+				if (valores[itens - 1] + tabela[itens - 1][ capacidade - pesos[ itens - 1 ]] > tabela[itens - 1][capacidade]) {
+					tabela[itens][capacidade] = valores[itens - 1] + tabela[itens - 1][ capacidade - pesos[ itens - 1 ]];	
 				}
 				else {
 					tabela[itens][capacidade] = tabela[itens - 1][capacidade];
